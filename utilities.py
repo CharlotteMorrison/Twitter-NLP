@@ -1,6 +1,6 @@
 import tweepy as tw
 from keys import get_keys
-
+import time
 
 
 class Tweets:
@@ -24,7 +24,17 @@ class Tweets:
                            since=start_date).items(num)
         return tweets
 
-    # account tools
+    def get_followers(self, user_name):
+        followers = []
+        for page in tw.Cursor(self.api.followers, screen_name=user_name, wait_on_rate_limit=True, count=200).pages():
+            try:
+                followers.extend(page)
+            except tw.TweepError as e:
+                print('waiting... ', e)
+                time.sleep(60)
+        return followers
+
+    # main account tools
     def send_tweet(self, message):
         self.api.update_status(message)
 
@@ -40,3 +50,4 @@ class Tweets:
         user = self.api.get_user(recipient)
         user_id = user.id
         self.api.send_direct_message(user_id, message)
+

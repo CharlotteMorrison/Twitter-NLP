@@ -5,4 +5,6 @@ if __name__ == '__main__':
     # whose tweets are to be extracted.
     twitter_api = Tweets()
 
-    twitter_api.send_dm('@bella_bear7', 'Hi bella, I am sending this from my twitter python program.  Did it work?')
+    # twitter_api.send_dm('bella_bear7', 'Nice, I can send tweets with python from the computer... so maybe evil?')
+
+    # print(twitter_api.get_followers('bella_bear7'))
